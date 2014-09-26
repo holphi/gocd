@@ -2,18 +2,21 @@ package com.dolby.gocd;
 
 public class Calculator
 {
-	public int Add(int a, int b)
+	public int add(int a, int b)
 	{
 		return a + b;
 	}
 	
-	public String ConcatStr(String str1, String str2)
+	public String concatString(String str1, String str2)
 	{
 		return str1 + str2;
 	}
 	
-	public float Add(float i, float j)
+	public boolean isLeapYear(int year)
 	{
-		return i+j;
+		if(year%4==0&&year%100!=0||year%400==0)
+			return true;
+		else
+			return false;
 	}
 }
