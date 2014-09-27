@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<project name="HelloWorldTest" default="junit">
+	<property name="run.classpath" value="dist" />
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="dist" />
+	<property name="lib.dir" value="lib" />
+	<property name="build.classes.dir" value="build/classes" />
+	<property name="junit.output.dir" value="junit"/>
+	<property name="copy.src" value="./../HelloWorld/dist" />
+	<path id="compile.path">
+		<pathelement location="lib/HelloWorld.jar" />
+	</path>
+	<target name="init">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+		<delete dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<delete dir="${lib.dir}" />
+		<echo message="Copy artifact: HelloWorld.jar" />
+		<mkdir dir="${lib.dir}" />
+		<copy file="${copy.src}\HelloWorld.jar" todir="${lib.dir}" />
+	</target>
+	<target name="compile" depends="init" >
+		<javac srcdir="src" destdir="build/classes" classpathref="compile.path" />
+	</target>
+	<target name="archive" depends="compile" > 
+		<jar destfile="dist/HelloWorldTest.jar" basedir="build/classes" />
+	</target>
+	<target name="junit" depends="archive">
+		<delete dir="${junit.output.dir}"/>
+        <mkdir dir="${junit.output.dir}"/>
+		<junit printsummary="on" fork="true" showoutput="true">
+		    <formatter type="plain" usefile="true"/>
+        	<formatter classname="org.apache.tools.ant.taskdefs.optional.junit.TearDownOnVmCrash" usefile="false"/>
+        	<formatter type="brief" extension=".html" usefile="true"/>
+        	<formatter type="xml"/>   
+			<classpath path="${run.classpath}\HelloWorldTest.jar"></classpath>
+			<classpath path="lib\HelloWorld.jar"></classpath>
+			<test name="com.dolby.test.CalculatorTest" todir="${junit.output.dir}"></test>
+		</junit>
+	</target>
+	<target name="clean" depends="init">
+		<delete dir="build" />
+		<delete dir="dist" />
+	</target>
+</project>
