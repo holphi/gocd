@@ -9,6 +9,7 @@
 	<property name="copy.src" value="./../HelloWorld/dist" />
 	<path id="compile.path">
 		<pathelement location="lib/HelloWorld.jar" />
+		<pathelement location="libs/junit-4.12-beta-1.jar" />
 	</path>
 	<target name="init">
 		<delete dir="${build.dir}" />
@@ -21,7 +22,7 @@
 		<copy file="${copy.src}\HelloWorld.jar" todir="${lib.dir}" />
 	</target>
 	<target name="compile" depends="init" >
-		<javac srcdir="src" destdir="build/classes" classpathref="compile.path" />
+		<javac srcdir="src" destdir="build/classes" classpathref="compile.path" includeantruntime="20000" />
 	</target>
 	<target name="archive" depends="compile" > 
 		<jar destfile="dist/HelloWorldTest.jar" basedir="build/classes" />
